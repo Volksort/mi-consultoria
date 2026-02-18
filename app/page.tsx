@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <main className="bg-[#f4f5f7] min-h-screen">
       {/* HERO */}
-      <section className="bg-gradient-to-r from-emerald-700 to-emerald-500 text-white py-24 px-6">
+      <section className="bg-gradient-to-r from-gray-700 to-emerald-500 text-white py-24 px-6">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
@@ -39,14 +39,14 @@ export default function Home() {
             <svg viewBox="0 0 768 384" width="100%" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#1aa39a" />
+                  <stop offset="0%" stopColor="#59b6b6" />
                   <stop offset="100%" stopColor="#0f766e" />
                 </linearGradient>
                 <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
                   <feDropShadow dx="0" dy="10" stdDeviation="14" floodOpacity="0.18" />
                 </filter>
                 <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#6ee7b7" stopOpacity="0.7" />
+                  <stop offset="0%" stopColor="#32a879" stopOpacity="0.7" />
                   <stop offset="100%" stopColor="#6ee7b7" stopOpacity="0" />
                 </linearGradient>
               </defs>
@@ -270,7 +270,7 @@ export default function Home() {
       </section>
 
       {/* MÉTRICAS */}
-      <section className="bg-gradient-to-r from-emerald-700 to-emerald-500 text-white py-16 px-6">
+      <section className="bg-gradient-to-r from-gray-700 to-emerald-500 text-white py-16 px-6">
         <div className="max-w-5xl mx-auto grid md:grid-cols-3 text-center gap-10">
           {[
             { numero: "40%", texto: "Reducción de costos operativos" },
