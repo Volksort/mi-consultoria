@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <main className="bg-[#f4f5f7] min-h-screen">
       {/* HERO */}
-      <section className="bg-gradient-to-r from-gray-700 to-emerald-500 text-white py-24 px-6">
+<section className="bg-gradient-to-r from-black to-emerald-500 text-white py-24 px-6">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
