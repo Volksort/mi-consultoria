@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="bg-[#f4f5f7] min-h-screen">
@@ -18,7 +20,7 @@ export default function Home() {
             <div className="flex gap-4 flex-wrap">
               <button
                 onClick={() => {
-                  const numeroTelefono = "525583692746";
+                  const numeroTelefono = "525655185966";
                   const mensaje = encodeURIComponent(
                     "Hola, me gustaría solicitar una asesoría gratuita en recursos humanos. Quedo atento a su respuesta. Saludos cordiales."
                   );
@@ -28,9 +30,12 @@ export default function Home() {
               >
                 Agenda una asesoría gratuita
               </button>
-              <button className="border border-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-emerald-700 transition cursor-pointer">
+              <Link
+                href="/servicios"
+                className="inline-block border border-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-emerald-700 transition cursor-pointer"
+              >
                 Ver servicios
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -293,7 +298,7 @@ export default function Home() {
         </p>
         <button
           onClick={() => {
-            const numeroTelefono = "525583692746";
+            const numeroTelefono = "525655185966";
             const mensaje = encodeURIComponent(
               "Hola, me gustaría solicitar una asesoría gratuita en recursos humanos. Quedo atento a su respuesta. Saludos cordiales."
             );
