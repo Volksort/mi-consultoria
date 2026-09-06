@@ -1,12 +1,149 @@
 "use client";
 
 import Link from "next/link";
+import { useRef, useState } from "react";
+
+function HeroVideoCard() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [flipped, setFlipped] = useState(false);
+
+  const playVideo = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    void video.play().catch(() => {});
+  };
+
+  const pauseVideo = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.pause();
+  };
+
+  const handleFlipClick = () => {
+    if (flipped) {
+      setFlipped(false);
+      pauseVideo();
+      if (videoRef.current) videoRef.current.currentTime = 0;
+      return;
+    }
+
+    setFlipped(true);
+    // Espera a que termine el volteo para empezar a reproducir
+    window.setTimeout(() => {
+      playVideo();
+    }, 350);
+  };
+
+  return (
+    <div className="w-full [perspective:1200px]">
+      <div
+        className={`relative w-full aspect-[16/10] cursor-pointer transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] [transform-style:preserve-3d] ${
+          flipped ? "[transform:rotateY(180deg)]" : ""
+        }`}
+        onClick={handleFlipClick}
+      >
+        {/* Frente: mockup */}
+        <div className="absolute inset-0 overflow-hidden rounded-2xl bg-gradient-to-br from-teal-400/90 to-emerald-800 shadow-2xl shadow-black/25 [backface-visibility:hidden]">
+          <div className="absolute inset-0 flex items-center justify-center p-4 md:p-6">
+            <svg viewBox="0 0 768 384" className="h-full w-full drop-shadow-lg" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feDropShadow dx="0" dy="10" stdDeviation="14" floodOpacity="0.18" />
+                </filter>
+                <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#32a879" stopOpacity="0.7" />
+                  <stop offset="100%" stopColor="#6ee7b7" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+
+              <rect x="120" y="70" width="380" height="230" rx="16" fill="#ffffff" filter="url(#shadow)" />
+              <circle cx="150" cy="95" r="5" fill="#10b981" />
+              <rect x="163" y="88" width="170" height="10" rx="5" fill="#0f172a" opacity="0.85" />
+              <rect x="150" y="115" width="160" height="60" rx="10" fill="#e6f6f3" />
+              <rect x="150" y="185" width="160" height="10" rx="5" fill="#eef2f7" />
+              <rect x="150" y="202" width="160" height="10" rx="5" fill="#eef2f7" />
+              <rect x="150" y="219" width="110" height="10" rx="5" fill="#eef2f7" />
+              <circle cx="350" cy="165" r="18" fill="#2563eb" />
+              <circle cx="410" cy="165" r="12" fill="#38bdf8" />
+              <circle cx="380" cy="215" r="12" fill="#10b981" />
+              <line x1="368" y1="165" x2="398" y2="165" stroke="#94a3b8" strokeWidth="2" />
+              <line x1="350" y1="182" x2="372" y2="205" stroke="#94a3b8" strokeWidth="2" />
+              <line x1="410" y1="182" x2="388" y2="205" stroke="#94a3b8" strokeWidth="2" />
+              <rect x="320" y="210" width="44" height="26" rx="8" fill="#3b82f6" />
+              <polygon points="338,216 338,230 348,223" fill="#ffffff" />
+              <rect x="395" y="210" width="32" height="26" rx="8" fill="#22c55e" />
+              <rect x="404" y="221" width="14" height="2" fill="#ffffff" />
+              <rect x="455" y="95" width="150" height="80" rx="14" fill="#ffffff" filter="url(#shadow)" />
+              <rect x="475" y="118" width="95" height="10" rx="5" fill="#e5e7eb" />
+              <rect x="475" y="135" width="65" height="10" rx="5" fill="#e5e7eb" />
+              <rect x="440" y="190" width="190" height="110" rx="16" fill="#ffffff" filter="url(#shadow)" />
+              <path d="M460 275 L495 245 L530 255 L565 230 L600 245 L600 295 L460 295 Z" fill="url(#area)" />
+              <polyline
+                points="460,275 495,245 530,255 565,230 600,245"
+                fill="none"
+                stroke="#10b981"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <line x1="460" y1="295" x2="620" y2="295" stroke="#cbd5e1" />
+              <line x1="460" y1="220" x2="460" y2="295" stroke="#cbd5e1" />
+              <rect x="135" y="95" width="90" height="180" rx="14" fill="#ffffff" filter="url(#shadow)" />
+              <rect x="150" y="120" width="60" height="10" rx="5" fill="#e5e7eb" />
+              <rect x="150" y="140" width="45" height="10" rx="5" fill="#e5e7eb" />
+              <rect x="150" y="170" width="60" height="10" rx="5" fill="#e5e7eb" />
+              <rect x="150" y="190" width="50" height="10" rx="5" fill="#e5e7eb" />
+              <rect x="150" y="220" width="60" height="10" rx="5" fill="#e5e7eb" />
+              <rect x="140" y="118" width="4" height="34" rx="2" fill="#10b981" />
+            </svg>
+          </div>
+
+          <div className="pointer-events-none absolute inset-x-0 bottom-4 flex justify-center">
+            <span className="rounded-full bg-black/35 px-4 py-1.5 text-xs font-medium text-white backdrop-blur-sm">
+              Haz clic para voltear y ver el video
+            </span>
+          </div>
+        </div>
+
+        {/* Dorso: video */}
+        <div
+          className="absolute inset-0 overflow-hidden rounded-2xl bg-black shadow-2xl shadow-black/30 [backface-visibility:hidden] [transform:rotateY(180deg)]"
+          onMouseEnter={playVideo}
+          onMouseLeave={pauseVideo}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <video
+            ref={videoRef}
+            src="/consultoria.mp4"
+            className="h-full w-full object-cover"
+            muted
+            playsInline
+            loop
+            controls
+            preload="metadata"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleFlipClick();
+            }}
+            className="absolute top-3 right-3 rounded-full bg-black/50 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm hover:bg-black/70 transition"
+          >
+            Volver
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
     <main className="bg-[#f4f5f7] min-h-screen">
       {/* HERO */}
-<section className="bg-gradient-to-r from-black to-emerald-500 text-white py-24 px-6">
+      <section className="bg-gradient-to-r from-black to-emerald-500 text-white py-24 px-6">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-6">
@@ -39,77 +176,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Mockup visual */}
-          <div className="w-full">
-            <svg viewBox="0 0 768 384" width="100%" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#59b6b6" />
-                  <stop offset="100%" stopColor="#0f766e" />
-                </linearGradient>
-                <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
-                  <feDropShadow dx="0" dy="10" stdDeviation="14" floodOpacity="0.18" />
-                </filter>
-                <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#32a879" stopOpacity="0.7" />
-                  <stop offset="100%" stopColor="#6ee7b7" stopOpacity="0" />
-                </linearGradient>
-              </defs>
-
-              <rect x="120" y="70" width="380" height="230" rx="16" fill="#ffffff" filter="url(#shadow)" />
-
-              <circle cx="150" cy="95" r="5" fill="#10b981" />
-              <rect x="163" y="88" width="170" height="10" rx="5" fill="#0f172a" opacity="0.85" />
-
-              <rect x="150" y="115" width="160" height="60" rx="10" fill="#e6f6f3" />
-              <rect x="150" y="185" width="160" height="10" rx="5" fill="#eef2f7" />
-              <rect x="150" y="202" width="160" height="10" rx="5" fill="#eef2f7" />
-              <rect x="150" y="219" width="110" height="10" rx="5" fill="#eef2f7" />
-
-              <circle cx="350" cy="165" r="18" fill="#2563eb" />
-              <circle cx="410" cy="165" r="12" fill="#38bdf8" />
-              <circle cx="380" cy="215" r="12" fill="#10b981" />
-
-              <line x1="368" y1="165" x2="398" y2="165" stroke="#94a3b8" strokeWidth="2" />
-              <line x1="350" y1="182" x2="372" y2="205" stroke="#94a3b8" strokeWidth="2" />
-              <line x1="410" y1="182" x2="388" y2="205" stroke="#94a3b8" strokeWidth="2" />
-
-              <rect x="320" y="210" width="44" height="26" rx="8" fill="#3b82f6" />
-              <polygon points="338,216 338,230 348,223" fill="#ffffff" />
-
-              <rect x="395" y="210" width="32" height="26" rx="8" fill="#22c55e" />
-              <rect x="404" y="221" width="14" height="2" fill="#ffffff" />
-
-              <rect x="455" y="95" width="150" height="80" rx="14" fill="#ffffff" filter="url(#shadow)" />
-              <rect x="475" y="118" width="95" height="10" rx="5" fill="#e5e7eb" />
-              <rect x="475" y="135" width="65" height="10" rx="5" fill="#e5e7eb" />
-
-              <rect x="440" y="190" width="190" height="110" rx="16" fill="#ffffff" filter="url(#shadow)" />
-
-              <path d="M460 275 L495 245 L530 255 L565 230 L600 245 L600 295 L460 295 Z" fill="url(#area)" />
-              <polyline
-                points="460,275 495,245 530,255 565,230 600,245"
-                fill="none"
-                stroke="#10b981"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-
-              <line x1="460" y1="295" x2="620" y2="295" stroke="#cbd5e1" />
-              <line x1="460" y1="220" x2="460" y2="295" stroke="#cbd5e1" />
-
-              <rect x="135" y="95" width="90" height="180" rx="14" fill="#ffffff" filter="url(#shadow)" />
-
-              <rect x="150" y="120" width="60" height="10" rx="5" fill="#e5e7eb" />
-              <rect x="150" y="140" width="45" height="10" rx="5" fill="#e5e7eb" />
-              <rect x="150" y="170" width="60" height="10" rx="5" fill="#e5e7eb" />
-              <rect x="150" y="190" width="50" height="10" rx="5" fill="#e5e7eb" />
-              <rect x="150" y="220" width="60" height="10" rx="5" fill="#e5e7eb" />
-
-              <rect x="140" y="118" width="4" height="34" rx="2" fill="#10b981" />
-            </svg>
-          </div>
+          <HeroVideoCard />
         </div>
       </section>
 
